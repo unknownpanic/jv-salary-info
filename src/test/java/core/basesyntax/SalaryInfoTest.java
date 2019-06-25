@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class SalaryInfoTest {
-    private static final String[] rolesArray = {"Сергей", "Андрей", "София"};
+    private static final String[] roles = {"Сергей", "Андрей", "София"};
     private static final String[] scriptArray = {
             "25.04.2019 Сергей 60 50",
             "25.04.2019 Андрей 3 200",
@@ -46,21 +46,24 @@ public class SalaryInfoTest {
     public void getSalaryInfo() {
         SalaryInfo salary = new SalaryInfo();
         for (int i = 0; i < dates.length; i++) {
-            String actualResult = salary.getSalaryInfo(rolesArray, scriptArray, dates[0], dates[i]);
+            String actualResult = salary.getSalaryInfo(roles, scriptArray, dates[0], dates[i]);
             String expectedResult = correctResult[i];
 
             Assert.assertEquals(
                     "Test failed from date " + dates[0] + " to " + dates[i]
                             + "\nactual: \n" + actualResult
-                            + "\nexpected: \n" + expectedResult, expectedResult, actualResult);
-
+                            + "\nexpected: \n" + expectedResult,
+                    expectedResult,
+                    actualResult);
         }
 
-        String actualResult = salary.getSalaryInfo(rolesArray, scriptArray, dates[1], dates[0]);
+        String actualResult = salary.getSalaryInfo(roles, scriptArray, dates[1], dates[0]);
         String expectedResult = null;
         Assert.assertEquals(
                 "Test failed from date " + dates[1] + " to " + dates[0]
                         + "\nactual: \n" + actualResult
-                        + "\nexpected: \n" + expectedResult, expectedResult, actualResult);
+                        + "\nexpected: \n" + expectedResult,
+                expectedResult,
+                actualResult);
     }
 }
