@@ -42,8 +42,30 @@ public class SalaryInfoTest {
                     "София - 2140\n"
     };
 
+    private static final String[] SECOND_SCRIPT_ARRAY = {
+            "13.07.2019 Сергей 60 50",
+            "15.07.2019 Андрей 3 200",
+            "15.07.2019 София 10 100",
+
+            "16.07.2019 Андрей 3 200",
+            "16.07.2019 София 9 100",
+
+            "10.08.2019 Сергей 7 100",
+            "08.08.2019 София 3 80",
+            "11.08.2019 Андрей 8 100"
+    };
+    private static final String[] SECOND_DATES = {
+            "14.07.2019",
+            "10.08.2019",
+    };
+    private static final String SECOND_EXPECTED_REPORTS =
+            "Отчёт за период 14.07.2019 - 10.08.2019\n" +
+                    "Сергей - 700\n" +
+                    "Андрей - 1200\n" +
+                    "София - 2140\n";
+
     @Test
-    public void getSalaryInfo() {
+    public void getSalaryInfoByMonth() {
         SalaryInfo salary = new SalaryInfo();
         for (int i = 0; i < DATES.length; i++) {
             String actualResult = salary.getSalaryInfo(ROLES, SCRIPT_ARRAY, DATES[0], DATES[i]);
@@ -61,6 +83,21 @@ public class SalaryInfoTest {
         String expectedResult = null;
         Assert.assertEquals(
                 "Test failed from date " + DATES[1] + " to " + DATES[0]
+                        + "\nactual: \n" + actualResult
+                        + "\nexpected: \n" + expectedResult,
+                expectedResult,
+                actualResult);
+    }
+
+    @Test
+    public void getSalaryInfoByTwoMonths() {
+        SalaryInfo salary = new SalaryInfo();
+        String actualResult = salary.getSalaryInfo(ROLES, SECOND_SCRIPT_ARRAY,
+                SECOND_DATES[0], SECOND_DATES[1]);
+        String expectedResult = SalaryInfoTest.SECOND_EXPECTED_REPORTS;
+
+        Assert.assertEquals(
+                "Test failed from date " + SECOND_DATES[0] + " to " + SECOND_DATES[1]
                         + "\nactual: \n" + actualResult
                         + "\nexpected: \n" + expectedResult,
                 expectedResult,
