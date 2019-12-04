@@ -1,7 +1,9 @@
 package core.basesyntax;
 
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class SalaryInfoTest {
     private static final String[] ROLES = {"Сергей", "Андрей", "София"};
@@ -64,29 +66,33 @@ public class SalaryInfoTest {
                     "Андрей - 1200\n" +
                     "София - 2140\n";
 
+    @Rule
+    public ExpectedException expectedEx = ExpectedException.none();
+
     @Test
     public void getSalaryInfoByMonth() {
-        SalaryInfo salary = new SalaryInfo();
-        for (int i = 0; i < DATES.length; i++) {
-            String actualResult = salary.getSalaryInfo(ROLES, SCRIPT_ARRAY, DATES[0], DATES[i]);
-            String expectedResult = SalaryInfoTest.EXPECTED_REPORTS[i];
+        try {
+            Class<?> exceptionClass = Class
+                    .forName("core.basesyntax.exception.IllegalDateParametersException");
+            expectedEx.expect((Class<? extends Throwable>) exceptionClass);
+            expectedEx.expectMessage("Wrong parameters");
+            SalaryInfo salary = new SalaryInfo();
+            for (int i = 0; i < DATES.length; i++) {
+                String actualResult = null;
+                actualResult = salary.getSalaryInfo(ROLES, SCRIPT_ARRAY, DATES[0], DATES[i]);
+                String expectedResult = SalaryInfoTest.EXPECTED_REPORTS[i];
 
-            Assert.assertEquals(
-                    "Test failed from date " + DATES[0] + " to " + DATES[i]
-                            + "\nactual: \n" + actualResult
-                            + "\nexpected: \n" + expectedResult,
-                    expectedResult,
-                    actualResult);
+                Assert.assertEquals(
+                        "Test failed from date " + DATES[0] + " to " + DATES[i]
+                                + "\nactual: \n" + actualResult
+                                + "\nexpected: \n" + expectedResult,
+                        expectedResult,
+                        actualResult);
+            }
+            salary.getSalaryInfo(ROLES, SCRIPT_ARRAY, DATES[1], DATES[0]);
+        } catch (ClassNotFoundException e) {
+            Assert.fail("Should create a class called 'IllegalDateParametersException'.");
         }
-
-        String actualResult = salary.getSalaryInfo(ROLES, SCRIPT_ARRAY, DATES[1], DATES[0]);
-        String expectedResult = null;
-        Assert.assertEquals(
-                "Test failed from date " + DATES[1] + " to " + DATES[0]
-                        + "\nactual: \n" + actualResult
-                        + "\nexpected: \n" + expectedResult,
-                expectedResult,
-                actualResult);
     }
 
     @Test
@@ -102,5 +108,14 @@ public class SalaryInfoTest {
                         + "\nexpected: \n" + expectedResult,
                 expectedResult,
                 actualResult);
+    }
+
+    @Test
+    public void testClassExists() {
+        try {
+            Class.forName("core.basesyntax.exception.IllegalDateParametersException");
+        } catch (ClassNotFoundException e) {
+            Assert.fail("Should create a class called 'IllegalDateParametersException'.");
+        }
     }
 }
