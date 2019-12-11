@@ -29,19 +29,19 @@ public class SalaryInfoTest {
             "Отчёт за период 24.04.2019 - 24.04.2019\n" +
                     "Сергей - 0\n" +
                     "Андрей - 0\n" +
-                    "София - 0\n",
+                    "София - 0",
             "Отчёт за период 24.04.2019 - 25.04.2019\n" +
                     "Сергей - 3000\n" +
                     "Андрей - 600\n" +
-                    "София - 1000\n",
+                    "София - 1000",
             "Отчёт за период 24.04.2019 - 26.04.2019\n" +
                     "Сергей - 3000\n" +
                     "Андрей - 1200\n" +
-                    "София - 1900\n",
+                    "София - 1900",
             "Отчёт за период 24.04.2019 - 27.04.2019\n" +
                     "Сергей - 3700\n" +
                     "Андрей - 2000\n" +
-                    "София - 2140\n"
+                    "София - 2140"
     };
 
     private static final String[] SECOND_SCRIPT_ARRAY = {
@@ -64,7 +64,7 @@ public class SalaryInfoTest {
             "Отчёт за период 14.07.2019 - 10.08.2019\n" +
                     "Сергей - 700\n" +
                     "Андрей - 1200\n" +
-                    "София - 2140\n";
+                    "София - 2140";
 
     @Rule
     public ExpectedException expectedEx = ExpectedException.none();
@@ -78,8 +78,7 @@ public class SalaryInfoTest {
             expectedEx.expectMessage("Wrong parameters");
             SalaryInfo salary = new SalaryInfo();
             for (int i = 0; i < DATES.length; i++) {
-                String actualResult = null;
-                actualResult = salary.getSalaryInfo(ROLES, SCRIPT_ARRAY, DATES[0], DATES[i]);
+                String actualResult = salary.getSalaryInfo(ROLES, SCRIPT_ARRAY, DATES[0], DATES[i]);
                 String expectedResult = SalaryInfoTest.EXPECTED_REPORTS[i];
 
                 Assert.assertEquals(
