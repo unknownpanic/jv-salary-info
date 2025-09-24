@@ -26,7 +26,7 @@ public class SalaryInfo {
         }
 
         for (int i = 0; i < names.length; i++) {
-            stringBuilder.append("\n").append(names[i])
+            stringBuilder.append(System.lineSeparator()).append(names[i])
                     .append(" - ").append(salaries[i]);
         }
 
