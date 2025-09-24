@@ -6,12 +6,10 @@ import java.time.format.DateTimeFormatter;
 public class Utilities {
     private static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
-    public String[] parseLine(String line) {
-        return line.split(" ");
+    public static String[] parseLine(String line) {
+        return line.trim().split("\\s+", 4);
     }
-
-    public int indexOfName(String[] names, String name) {
+    public static int indexOfName(String[] names, String name) {
         for (int i = 0; i < names.length; i++) {
             if (names[i].equals(name)) {
                 return i;
@@ -20,8 +18,7 @@ public class Utilities {
 
         return -1;
     }
-
-    public boolean isDateInBound(String dateFrom, String dateTo, String currentDate) {
+    public static boolean isDateInBound(String dateFrom, String dateTo, String currentDate) {
         LocalDate from = LocalDate.parse(dateFrom, DATE_FORMATTER);
         LocalDate to = LocalDate.parse(dateTo, DATE_FORMATTER);
         LocalDate current = LocalDate.parse(currentDate, DATE_FORMATTER);
