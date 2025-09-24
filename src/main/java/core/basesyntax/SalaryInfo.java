@@ -5,6 +5,7 @@ public class SalaryInfo {
     private static final int INDEX_OF_HOURS = 2;
     private static final int INDEX_OF_NAME = 1;
     private static final int INDEX_OF_PAY_RATE = 3;
+
     public String getSalaryInfo(String[] names, String[] data, String dateFrom, String dateTo) {
         StringBuilder stringBuilder = new StringBuilder();
         int[] salaries = new int[names.length];
